@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoTunePro | High-Performance Car Parts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Exo+2:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a1a2d;
+            --secondary: #c00a0a;
+            --accent: #00a8ff;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(10, 26, 45, 0.9), rgba(10, 26, 45, 0.8)), url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #a00808;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* Car Platform Selection */
+        .section-title {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 60px 0 40px;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .platform-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .platform-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .platform-content {
+            padding: 20px;
+        }
+
+        .platform-content h3 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .platform-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .platform-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        /* Packages Section */
+        .packages {
+            background-color: #f5f7fa;
+            padding: 60px 0;
+        }
+
+        .package-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .tab-btn {
+            padding: 10px 25px;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background-color: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .package-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .package-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .package-card.featured {
+            transform: scale(1.05);
+            border: 2px solid var(--accent);
+        }
+
+        .package-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .package-header h3 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .package-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .package-price span {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .package-features {
+            padding: 25px;
+        }
+
+        .package-features ul {
+            list-style: none;
+        }
+
+        .package-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .package-features i {
+            color: var(--secondary);
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
+        .package-customize {
+            padding: 0 25px 25px;
+        }
+
+        .customize-option {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .customize-option select {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--light-gray);
+            width: 150px;
+        }
+
+        /* Parts Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .category-card h3 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .category-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Platform Page */
+        .platform-page {
+            padding: 40px 0 80px;
+        }
+
+        .platform-header {
+            background: linear-gradient(rgba(10, 26, 45, 0.9), rgba(10, 26, 45, 0.8)), url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=1674&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .platform-header h1 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        .platform-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .platform-description {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .platform-description h2 {
+            font-family: 'Exo 2', sans-serif;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .parts-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .parts-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .parts-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .parts-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .parts-table tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .price {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .availability {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .in-stock {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .low-stock {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .newsletter-form button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            background-color: #a00808;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Back to Home */
+        .back-home {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .back-home:hover {
+            color: var(--secondary);
+        }
+
+        .back-home i {
+            margin-right: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .package-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .package-tabs {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .platforms-grid, .package-cards, .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Hide/show sections */
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo" onclick="showSection('home')">
+                <i class="fas fa-tachometer-alt"></i> AutoTune<span>Pro</span>
+            </a>
+            
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav-links" id="navLinks">
+                <a href="#" onclick="showSection('home')">Home</a>
+                <a href="#" onclick="showSection('platforms')">Platforms</a>
+                <a href="#" onclick="showSection('packages')">Packages</a>
+                <a href="#" onclick="showSection('categories')">Categories</a>
+                <a href="#" onclick="showPlatformPage('bmw')">BMW M Series</a>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="#" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">3</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Homepage -->
+    <section id="home" class="page-section active">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="container">
+                <h1>Premium Performance Car Parts</h1>
+                <p>Upgrade your vehicle with our high-performance parts, engineered for maximum power and precision. From turbo kits to suspension upgrades, we have everything for your performance build.</p>
+                <a href="#" class="btn" onclick="showSection('platforms')">Browse Platforms</a>
+            </div>
+        </div>
+
+        <!-- Car Platform Selection -->
+        <div class="container">
+            <h2 class="section-title">Select Your Car Platform</h2>
+            <div class="platforms-grid">
+                <div class="platform-card" onclick="showPlatformPage('bmw')">
+                    <div class="platform-image" style="background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="platform-content">
+                        <h3>BMW M Series</h3>
+                        <p>Performance parts for BMW M2, M3, M4, M5, and M8 models. Engine tuning, suspension, brake upgrades and more.</p>
+                        <div class="platform-stats">
+                            <span><i class="fas fa-cog"></i> 245+ Parts</span>
+                            <span><i class="fas fa-tools"></i> 12+ Packages</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="platform-card" onclick="showPlatformPage('audi')">
+                    <div class="platform-image" style="background-image: url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1064&q=80')"></div>
+                    <div class="platform-content">
+                        <h3>Audi RS/S Line</h3>
+                        <p>Upgrade your Audi RS or S model with our performance parts. Turbo upgrades, exhaust systems, and Quattro enhancements.</p>
+                        <div class="platform-stats">
+                            <span><i class="fas fa-cog"></i> 198+ Parts</span>
+                            <span><i class="fas fa-tools"></i> 9+ Packages</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="platform-card" onclick="showPlatformPage('mercedes')">
+                    <div class="platform-image" style="background-image: url('https://images.unsplash.com/photo-1563720223485-8d6d5c5b090e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="platform-content">
+                        <h3>Mercedes-AMG</h3>
+                        <p>Performance upgrades for Mercedes-AMG models. ECU tuning, aerodynamic kits, and transmission enhancements.</p>
+                        <div class="platform-stats">
+                            <span><i class="fas fa-cog"></i> 215+ Parts</span>
+                            <span><i class="fas fa-tools"></i> 11+ Packages</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="platform-card" onclick="showPlatformPage('porsche')">
+                    <div class="platform-image" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80')"></div>
+                    <div class="platform-content">
+                        <h3>Porsche 911/718</h3>
+                        <p>Specialized parts for Porsche 911 and 718 platforms. Suspension upgrades, exhaust systems, and engine tuning.</p>
+                        <div class="platform-stats">
+                            <span><i class="fas fa-cog"></i> 178+ Parts</span>
+                            <span><i class="fas fa-tools"></i> 8+ Packages</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Packages Preview -->
+        <div class="packages">
+            <div class="container">
+                <h2 class="section-title">Customizable Performance Packages</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: var(--gray);">Build your perfect performance package with our configurable options. Select from Stage 1 to Stage 3 upgrades tailored to your driving needs.</p>
+                
+                <div class="package-tabs">
+                    <button class="tab-btn active" onclick="changePackageTab('stage1')">Stage 1</button>
+                    <button class="tab-btn" onclick="changePackageTab('stage2')">Stage 2</button>
+                    <button class="tab-btn" onclick="changePackageTab('stage3')">Stage 3</button>
+                </div>
+                
+                <div class="package-cards" id="packageCards">
+                    <!-- Package cards will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Preview -->
+        <div class="container">
+            <h2 class="section-title">Parts Categories</h2>
+            
+            <div class="categories-grid">
+                <div class="category-card" onclick="showSection('categories')">
+                    <div class="category-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Engine & Performance</h3>
+                    <p>Turbochargers, intercoolers, ECU tuning, exhaust systems, and more for maximum power gains.</p>
+                </div>
+                
+                <div class="category-card" onclick="showSection('categories')">
+                    <div class="category-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Suspension & Handling</h3>
+                    <p>Coilovers, sway bars, control arms, and bushings for improved cornering and ride quality.</p>
+                </div>
+                
+                <div class="category-card" onclick="showSection('categories')">
+                    <div class="category-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Braking Systems</h3>
+                    <p>Big brake kits, performance pads, stainless lines, and rotors for maximum stopping power.</p>
+                </div>
+                
+                <div class="category-card" onclick="showSection('categories')">
+                    <div class="category-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <h3>Aerodynamics</h3>
+                    <p>Front splitters, rear wings, diffusers, and body kits for improved downforce and stability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Page (Hidden by default) -->
+    <section id="platform-page" class="page-section">
+        <div class="platform-header" id="platformHeader">
+            <div class="container">
+                <h1 id="platformTitle">BMW M Series</h1>
+                <p id="platformSubtitle">Performance parts and upgrades for BMW M2, M3, M4, M5, and M8 models</p>
+            </div>
+        </div>
+        
+        <div class="container platform-page">
+            <a href="#" class="back-home" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            
+            <div class="platform-description">
+                <h2>About This Platform</h2>
+                <p id="platformDescription">The BMW M Series represents the pinnacle of BMW's performance engineering. Our specialized parts for this platform are designed to unlock even more potential from these already exceptional vehicles. From engine tuning that pushes horsepower boundaries to suspension upgrades that transform handling, we offer everything needed to take your M car to the next level.</p>
+                <p>All our parts are rigorously tested on track and street to ensure they meet the highest standards of performance, reliability, and fitment.</p>
+            </div>
+            
+            <h2 class="section-title">Available Parts</h2>
+            
+            <table class="parts-table" id="partsTable">
+                <!-- Parts will be populated by JavaScript -->
+            </table>
+        </div>
+    </section>
+
+    <!-- Packages Page (Hidden by default) -->
+    <section id="packages-page" class="page-section">
+        <div class="container">
+            <a href="#" class="back-home" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            
+            <h2 class="section-title">Performance Packages</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: var(--gray);">Our performance packages are carefully curated combinations of parts designed to work together for specific power and handling goals. Each package is customizable to suit your exact needs.</p>
+            
+            <div class="package-tabs">
+                <button class="tab-btn active" onclick="changePackageTab('stage1')">Stage 1</button>
+                <button class="tab-btn" onclick="changePackageTab('stage2')">Stage 2</button>
+                <button class="tab-btn" onclick="changePackageTab('stage3')">Stage 3</button>
+            </div>
+            
+            <div class="package-cards" id="packageCardsPage">
+                <!-- Package cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Page (Hidden by default) -->
+    <section id="categories-page" class="page-section">
+        <div class="container">
+            <a href="#" class="back-home" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            
+            <h2 class="section-title">Parts Categories</h2>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Engine & Performance</h3>
+                    <p>Turbochargers, intercoolers, ECU tuning, exhaust systems, and more for maximum power gains.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">142 Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Suspension & Handling</h3>
+                    <p>Coilovers, sway bars, control arms, and bushings for improved cornering and ride quality.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">98 Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Braking Systems</h3>
+                    <p>Big brake kits, performance pads, stainless lines, and rotors for maximum stopping power.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">76 Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <h3>Aerodynamics</h3>
+                    <p>Front splitters, rear wings, diffusers, and body kits for improved downforce and stability.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">54 Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Drivetrain</h3>
+                    <p>Limited slip differentials, upgraded clutches, driveshafts, and transmission components.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">67 Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tire"></i>
+                    </div>
+                    <h3>Wheels & Tires</h3>
+                    <p>Lightweight forged wheels, performance tires, wheel spacers, and tire pressure monitoring.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">89 Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-oil-can"></i>
+                    </div>
+                    <h3>Fluids & Maintenance</h3>
+                    <p>High-performance oils, coolants, brake fluids, and maintenance kits for track use.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">45 Products</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3>Interior & Electronics</h3>
+                    <p>Performance seats, steering wheels, gauges, and electronic modules for vehicle control.</p>
+                    <p style="margin-top: 10px; font-weight: 600; color: var(--primary);">62 Products</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AutoTunePro</h3>
+                    <p>Premium performance parts for enthusiasts who demand the best. Engineered for maximum power, precision, and reliability.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" onclick="showSection('home')">Home</a></li>
+                        <li><a href="#" onclick="showSection('platforms')">Car Platforms</a></li>
+                        <li><a href="#" onclick="showSection('packages')">Performance Packages</a></li>
+                        <li><a href="#" onclick="showSection('categories')">Parts Categories</a></li>
+                        <li><a href="#">Installation Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Warranty Information</a></li>
+                        <li><a href="#">Technical Support</a></li>
+                        <li><a href="#">Fitment Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on new products, special offers, and performance tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 AutoTunePro. All rights reserved. | Designed for performance enthusiasts</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile navigation toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile nav when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Show/hide sections
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show requested section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // If showing home, also show the homepage content
+            if (sectionId === 'home') {
+                document.getElementById('home').classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Platform data
+        const platforms = {
+            bmw: {
+                title: "BMW M Series",
+                subtitle: "Performance parts and upgrades for BMW M2, M3, M4, M5, and M8 models",
+                description: "The BMW M Series represents the pinnacle of BMW's performance engineering. Our specialized parts for this platform are designed to unlock even more potential from these already exceptional vehicles. From engine tuning that pushes horsepower boundaries to suspension upgrades that transform handling, we offer everything needed to take your M car to the next level.",
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                parts: [
+                    { name: "Stage 2 ECU Tune", category: "Engine", price: "$1,299", availability: "In Stock" },
+                    { name: "Carbon Fiber Intake System", category: "Engine", price: "$849", availability: "In Stock" },
+                    { name: "Performance Exhaust System", category: "Engine", price: "$2,199", availability: "Low Stock" },
+                    { name: "Adjustable Coilover Suspension", category: "Suspension", price: "$3,499", availability: "In Stock" },
+                    { name: "Big Brake Kit (6-piston)", category: "Brakes", price: "$4,299", availability: "In Stock" },
+                    { name: "Carbon Fiber Front Splitter", category: "Aerodynamics", price: "$1,199", availability: "In Stock" },
+                    { name: "Limited Slip Differential", category: "Drivetrain", price: "$3,899", availability: "Low Stock" },
+                    { name: "Forged Lightweight Wheels", category: "Wheels", price: "$5,499", availability: "In Stock" }
+                ]
+            },
+            audi: {
+                title: "Audi RS/S Line",
+                subtitle: "Performance upgrades for Audi RS and S models",
+                description: "Audi's RS and S models combine luxury with serious performance. Our parts are engineered to enhance both the power and handling characteristics that make these vehicles special. From Quattro system enhancements to aggressive turbo upgrades, we have solutions for every Audi enthusiast.",
+                image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1064&q=80",
+                parts: [
+                    { name: "Stage 1+ ECU Software", category: "Engine", price: "$899", availability: "In Stock" },
+                    { name: "Turbo Upgrade Kit", category: "Engine", price: "$3,999", availability: "In Stock" },
+                    { name: "Sport Suspension Kit", category: "Suspension", price: "$2,199", availability: "In Stock" },
+                    { name: "Performance Rotor Kit", category: "Brakes", price: "$1,899", availability: "Low Stock" }
+                ]
+            },
+            mercedes: {
+                title: "Mercedes-AMG",
+                subtitle: "Performance parts for Mercedes-AMG models",
+                description: "Mercedes-AMG represents the ultimate in German performance luxury. Our parts for AMG models focus on unlocking the full potential of these hand-built engines while maintaining the refinement expected from Mercedes-Benz. From ECU tuning to bespoke suspension systems, we offer comprehensive upgrade paths.",
+                image: "https://images.unsplash.com/photo-1563720223485-8d6d5c5b090e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                parts: [
+                    { name: "AMG ECU Remap", category: "Engine", price: "$1,499", availability: "In Stock" },
+                    { name: "Performance Downpipes", category: "Engine", price: "$1,199", availability: "In Stock" },
+                    { name: "AMG Sport Suspension", category: "Suspension", price: "$2,899", availability: "In Stock" }
+                ]
+            },
+            porsche: {
+                title: "Porsche 911/718",
+                subtitle: "Specialized parts for Porsche 911 and 718 platforms",
+                description: "Porsche's 911 and 718 represent decades of sports car evolution. Our parts for these platforms respect their engineering heritage while offering meaningful performance improvements. From suspension that enhances the famous Porsche handling to engine upgrades that deliver more power across the rev range.",
+                image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                parts: [
+                    { name: "Porsche ECU Optimization", category: "Engine", price: "$1,799", availability: "In Stock" },
+                    { name: "Performance Exhaust with Valve Control", category: "Engine", price: "$3,299", availability: "Low Stock" },
+                    { name: "Track-focused Suspension", category: "Suspension", price: "$4,199", availability: "In Stock" }
+                ]
+            }
+        };
+        
+        // Package data
+        const packages = {
+            stage1: [
+                {
+                    name: "Stage 1 Power Package",
+                    price: "2,499",
+                    description: "Entry-level performance upgrades for noticeable power gains",
+                    features: [
+                        "ECU Performance Tune",
+                        "High-Flow Air Intake",
+                        "Performance Exhaust System",
+                        "Installation Guide",
+                        "Dyno Tuning Session"
+                    ],
+                    customizable: true,
+                    featured: false
+                },
+                {
+                    name: "Stage 1+ Handling Package",
+                    price: "3,199",
+                    description: "Balanced power and handling upgrades for daily driving",
+                    features: [
+                        "ECU Performance Tune",
+                        "Sport Springs & Dampers",
+                        "Upgraded Sway Bars",
+                        "Performance Brake Pads",
+                        "Alignment Specifications"
+                    ],
+                    customizable: true,
+                    featured: true
+                },
+                {
+                    name: "Stage 1 Complete",
+                    price: "4,899",
+                    description: "Comprehensive Stage 1 upgrades for balanced performance",
+                    features: [
+                        "ECU Performance Tune",
+                        "High-Flow Air Intake",
+                        "Performance Exhaust",
+                        "Sport Suspension Kit",
+                        "Performance Brake Package",
+                        "Professional Installation Available"
+                    ],
+                    customizable: true,
+                    featured: false
+                }
+            ],
+            stage2: [
+                {
+                    name: "Stage 2 Turbo Upgrade",
+                    price: "5,999",
+                    description: "Significant power gains with turbo upgrades",
+                    features: [
+                        "Upgraded Turbocharger",
+                        "High-Flow Intercooler",
+                        "ECU Stage 2 Tune",
+                        "Upgraded Fuel Pump",
+                        "Boost Controller"
+                    ],
+                    customizable: true,
+                    featured: false
+                },
+                {
+                    name: "Stage 2 Track Package",
+                    price: "7,499",
+                    description: "Track-focused upgrades for improved lap times",
+                    features: [
+                        "Adjustable Coilover Suspension",
+                        "Big Brake Kit (Front)",
+                        "Performance Tires",
+                        "Aerodynamic Kit",
+                        "Track Alignment Setup"
+                    ],
+                    customizable: true,
+                    featured: true
+                }
+            ],
+            stage3: [
+                {
+                    name: "Stage 3 Ultimate Power",
+                    price: "12,999",
+                    description: "Maximum power build for competitive use",
+                    features: [
+                        "Fully Built Engine Internals",
+                        "Large Turbo Upgrade",
+                        "Standalone ECU",
+                        "Competition Clutch",
+                        "Custom Fuel System",
+                        "Dyno Tuning & Mapping"
+                    ],
+                    customizable: true,
+                    featured: false
+                },
+                {
+                    name: "Stage 3 Complete Race Build",
+                    price: "22,999",
+                    description: "Complete race-ready build for competition",
+                    features: [
+                        "Fully Built Engine",
+                        "Sequential Transmission",
+                        "Full Cage & Safety",
+                        "Race Suspension",
+                        "Aerodynamic Package",
+                        "Professional Installation & Tuning"
+                    ],
+                    customizable: true,
+                    featured: true
+                }
+            ]
+        };
+        
+        // Show platform page
+        function showPlatformPage(platformId) {
+            const platform = platforms[platformId];
+            
+            // Update platform page content
+            document.getElementById('platformTitle').textContent = platform.title;
+            document.getElementById('platformSubtitle').textContent = platform.subtitle;
+            document.getElementById('platformDescription').textContent = platform.description;
+            document.getElementById('platformHeader').style.backgroundImage = `linear-gradient(rgba(10, 26, 45, 0.9), rgba(10, 26, 45, 0.8)), url('${platform.image}')`;
+            
+            // Update parts table
+            const partsTable = document.getElementById('partsTable');
+            partsTable.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Part Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${platform.parts.map(part => `
+                        <tr>
+                            <td>${part.name}</td>
+                            <td>${part.category}</td>
+                            <td class="price">${part.price}</td>
+                            <td><span class="availability ${part.availability === 'In Stock' ? 'in-stock' : 'low-stock'}">${part.availability}</span></td>
+                            <td><button class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Add to Cart</button></td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
+            
+            // Show platform page
+            showSection('platform-page');
+        }
+        
+        // Change package tab
+        function changePackageTab(stage) {
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update package cards on homepage
+            renderPackageCards(stage, 'packageCards');
+            
+            // Update package cards on packages page if it's visible
+            if (document.getElementById('packages-page').classList.contains('active')) {
+                renderPackageCards(stage, 'packageCardsPage');
+            }
+        }
+        
+        // Render package cards
+        function renderPackageCards(stage, containerId) {
+            const packageList = packages[stage];
+            const container = document.getElementById(containerId);
+            
+            container.innerHTML = packageList.map(pkg => `
+                <div class="package-card ${pkg.featured ? 'featured' : ''}">
+                    <div class="package-header">
+                        <h3>${pkg.name}</h3>
+                        <div class="package-price">$${pkg.price}<span> starting</span></div>
+                        <p>${pkg.description}</p>
+                    </div>
+                    <div class="package-features">
+                        <ul>
+                            ${pkg.features.map(feature => `<li><i class="fas fa-check"></i> ${feature}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ${pkg.customizable ? `
+                    <div class="package-customize">
+                        <div class="customize-option">
+                            <span>Car Model:</span>
+                            <select>
+                                <option>Select Model</option>
+                                <option>BMW M3/M4</option>
+                                <option>Audi RS5</option>
+                                <option>Mercedes-AMG C63</option>
+                                <option>Porsche 911 Carrera</option>
+                            </select>
+                        </div>
+                        <div class="customize-option">
+                            <span>Transmission:</span>
+                            <select>
+                                <option>Automatic</option>
+                                <option>Manual</option>
+                                <option>DCT/PDK</option>
+                            </select>
+                        </div>
+                    </div>
+                    ` : ''}
+                    <div style="padding: 0 25px 25px;">
+                        <button class="btn" style="width: 100%;">Customize & Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Initialize the page with Stage 1 packages
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPackageCards('stage1', 'packageCards');
+            renderPackageCards('stage1', 'packageCardsPage');
+        });
+    </script>
+</body>
+</html>
